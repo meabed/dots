@@ -63,7 +63,8 @@ set shiftwidth=2
 set expandtab
 
 " Display extra whitespace
-set list listchars=tab:»·,trail:·
+" set list listchars=tab:»·,trail:·
+set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " Use The Silver Searcher https://github.com/ggreer/the_silver_searcher
 if executable('ag')

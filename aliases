@@ -13,26 +13,134 @@ alias -g ONE="| awk '{ print \$1}'"
 alias e="$EDITOR"
 alias v="$VISUAL"
 
+## Show hidden files ##
+alias l.='ls -d .*'
+
+## get rid of command not found ##
+alias cd..='cd ..'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias c='clear'
+
+
+## a quick way to get out of current directory ##
+dotSlash=""
+for i in 1 2 3 4
+do
+    dotSlash=${dotSlash}'../';
+    baseName=".${i}"
+    alias $baseName="cd ${dotSlash}"
+done
+bash_prompt_command()
+{
+    RTN=$?
+    prevCmd=$(prevCmd $RTN)
+}
+PROMPT_COMMAND=bash_prompt_command
+prevCmd()
+{
+    if [ $1 == 0 ] ; then
+        echo $GREEN
+    else
+        echo $RED
+    fi
+}
+if [ $(tput colors) -gt 0 ] ; then
+    RED=$(tput setaf 1)
+    GREEN=$(tput setaf 2)
+    RST=$(tput op)
+fi
+
+#alias ls='ls --color=auto'
+alias ssh='ssh -vv'
+alias svpn='ssh -D 8080 -f -C -q -N meabdnet@meabed.net'
+alias opent='open -a textmate'
+
+alias ll='ls -lah'
+alias ls='ls -ah'
+
+#progress bar on file copy. Useful evenlocal.
+alias cpProgress="rsync --progress -ravz"
+
+## Colorize the grep command output for ease of use (good for log files)##
+#alias grep='grep --color=auto'
+#alias egrep='egrep --color=auto'
+#alias fgrep='fgrep --color=auto'
+export GREP_OPTIONS='--color=auto'
+export GREP_COLOR='1;35;40'
+
+alias mkdir='mkdir -pv'
+alias h='history'
+alias j='jobs -l'
+alias path='echo -e ${PATH//:/\\n}'
+
+alias vi=vim
+alias svi='sudo vi'
+alias vis='vim "+set si"'
+alias edit='vim'
+
+# Stop after sending count ECHO_REQUEST packets #
+alias ping='ping -c 10'
+# Do not wait interval 1 second, go fast #
+alias fastping='ping -c 100 -s.2'
+
+# confirmation #
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+
+# become root #
+alias root='sudo -i'
+alias su='sudo -i'
+
 # git
-alias gci="git pull --rebase && rake && git push"
+alias gci="git pull --rebase && git push"
+alias gitc='git commit -a -m "Commit"'
+alias gs='git status'
+alias gc='git commit'
+alias gl='git log'
+alias ga='git add'
 
-# Bundler
-alias b="bundle"
 
-# Tests and Specs
-alias t="ruby -I test"
-alias cuc="bundle exec cucumber"
+# General
+alias dev='cd ~/Development/'
+alias plog='tail -f -n200 /var/log/php_errors.log'
+alias slog='tail -f -n200 /var/log/system.log'
+alias wget='wget -c'
+alias ps='ps auxwww'
+alias cdns='sudo killall -HUP mDNSResponder'
+alias lock='/System/Library/CoreServices/Menu\ Extras/User.menu/Contents/Resources/CGSession -suspend'
 
-# Rubygems
-alias gi="gem install"
-alias giv="gem install -v"
 
-# Rails
-alias migrate="rake db:migrate db:rollback && rake db:migrate db:test:prepare"
-alias m="migrate"
-alias rk="rake"
-alias s="rspec"
-alias z="zeus"
+# also pass it via sudo so whoever is admin can reload it without calling you #
+
+alias mres='sudo launchctl unload /Library/LaunchDaemons/org.macports.mongodb.plist;sudo launchctl load -w /Library/LaunchDaemons/org.macports.mongodb.plist'
+
+alias syslogres='sudo launchctl unload /System/Library/LaunchDaemons/com.apple.syslogd.plist; sleep 1; sudo  launchctl load /System/Library/LaunchDaemons/com.apple.syslogd.plist'
+
+# nginx
+alias nginx_start='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
+alias nginx_stop='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
+alias nginx_restart='nginx_stop; nginx_start;'
+
+# php-fpm
+alias fpm_start='launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist'
+alias fpm_stop='launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist'
+alias fpm_restart='fpm_stop; fpm_start'
+
+# mysql
+alias sql_start="mysql.server start"
+alias sql_stop="mysql.server restart"
+alias sql_restart="sql_stop; sql_start"
+
+#varnish
+alias varnish_start='sudo launchctl load -w -F /Library/LaunchDaemons/homebrew.mxcl.varnish.plist'
+alias varnish_stop='sudo launchctl unload -w /Library/LaunchDaemons/homebrew.mxcl.varnish.plist'
+alias varnish_restart="sudo pkill varnishd;varnish_stop;varnish_start"
+
 
 # Include custom aliases
 [[ -f ~/.aliases.local ]] && source ~/.aliases.local
+
