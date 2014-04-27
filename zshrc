@@ -52,7 +52,7 @@ source $ZSH/oh-my-zsh.sh
 # Customize to your needs...
 # /opt/local/libexec/gnubin:
 
-export PATH=$PATH:/usr/local/bin:/usr/local/sbin:/Users/meabed/bin:/usr/local/opt/php54/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin
+export PATH=/usr/local/bin:/usr/local/sbin:/Users/meabed/bin:/usr/local/opt/php54/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$PATH
 
 zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
 fpath=(/usr/local/share/zsh/site-functions $fpath)
