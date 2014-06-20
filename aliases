@@ -74,7 +74,7 @@ export GREP_COLOR='1;35;40'
 alias mkdir='mkdir -pv'
 alias h='history'
 alias j='jobs -l'
-alias path='echo -e ${PATH//:/\\n}'
+alias path='echo -e ${PATH//:/\\n\r}'
 
 alias vi=vim
 alias svi='sudo vi'
@@ -126,8 +126,8 @@ alias nginx_stop='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.nginx.pl
 alias nginx_restart='nginx_stop; nginx_start;'
 
 # php-fpm
-alias fpm_start='launchctl load -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist'
-alias fpm_stop='launchctl unload -w ~/Library/LaunchAgents/homebrew-php.josegonzalez.php54.plist'
+alias fpm_start='launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist'
+alias fpm_stop='launchctl unload -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist'
 alias fpm_restart='fpm_stop; fpm_start'
 
 # mysql
