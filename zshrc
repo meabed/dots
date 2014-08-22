@@ -43,9 +43,9 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails rsync colorize autojump git git-extras git-flow github textmate ruby lighthouse history history-substring-search)
+# Example format: plugins=(rails rsync colorize autojump git git-extras git-flow github textmate ruby lighthouse history history-substring-search docker extract go golang)
 # plugins=(git)
-plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo)
+plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo docker extract go golang zsh_reload)
 
 source $ZSH/oh-my-zsh.sh
 
