@@ -121,9 +121,9 @@ alias mres='sudo launchctl unload /Library/LaunchDaemons/org.macports.mongodb.pl
 alias syslogres='sudo launchctl unload /System/Library/LaunchDaemons/com.apple.syslogd.plist; sleep 1; sudo  launchctl load /System/Library/LaunchDaemons/com.apple.syslogd.plist'
 
 # nginx
-alias nginx_start='launchctl load ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
-alias nginx_stop='launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
-alias nginx_restart='nginx_stop; nginx_start;'
+alias nginx_start='sudo launchctl load ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
+alias nginx_stop=' sudo launchctl unload ~/Library/LaunchAgents/homebrew.mxcl.nginx.plist'
+alias nginx_restart='sudo pkill nginx;nginx_stop; nginx_start;'
 
 # php-fpm
 alias fpm_start='launchctl load -w ~/Library/LaunchAgents/homebrew.mxcl.php54.plist'

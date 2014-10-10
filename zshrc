@@ -43,9 +43,9 @@ COMPLETION_WAITING_DOTS="true"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
-# Example format: plugins=(rails rsync colorize autojump git git-extras git-flow github textmate ruby lighthouse history history-substring-search docker extract go golang)
-# plugins=(git)
-plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo docker extract go golang zsh_reload)
+# Example format: plugins=(rails rsync colorize)
+
+plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo docker extract go golang zsh_reload z boot2docker zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -54,7 +54,37 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=/usr/local/bin:/usr/local/sbin:/Users/meabed/bin:/usr/local/opt/php54/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$PATH
 
-zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
+
+#zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
+# make autocompletion faster by caching and prefix-only matching
+zstyle ':completion:*' accept-exact '*(N)'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.zsh/cache
+
+# fuzzy matching of completions for when you mistype them
+zstyle ':completion:*' completer _complete _match _approximate
+zstyle ':completion:*:match:*' original only
+zstyle ':completion:*:approximate:*' max-errors 1 numeric
+
+# get better autocompletion accuracy by typing longer words
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
+
+# ignore completion functions for commands you don't have
+zstyle ':completion:*:functions' ignored-patterns '_*'
+
+# allow one error for every three characters typed
+zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)*==36=36}:${(s.:.)LS_COLORS}")';
+zstyle ':completion:*' squeeze-slashes true
+
+# completing process IDs with menu selection
+zstyle ':completion:*:*:kill:*' menu yes select
+zstyle ':completion:*:kill:*'   force-list always
+
+zstyle ':filter-select:highlight' matched fg=red
+zstyle ':filter-select' max-lines 1000
+zstyle ':filter-select' rotate-list yes
+zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
+
 fpath=(/usr/local/share/zsh/site-functions $fpath)
 
 # load our own completion functions
@@ -93,3 +123,8 @@ export PATH="$HOME/.bin:$PATH"
 
 # functions
 [[ -f ~/.functions ]] && source ~/.functions
+
+export GOROOT=/usr/local/Cellar/go/1.3.1/libexec
+export GOPATH=/Users/meabed/Development/go
+export PATH="$PATH:$GOPATH/bin"
+export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
