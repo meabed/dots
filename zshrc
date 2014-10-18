@@ -54,6 +54,38 @@ source $ZSH/oh-my-zsh.sh
 
 export PATH=/usr/local/bin:/usr/local/sbin:/Users/meabed/bin:/usr/local/opt/php54/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:$PATH
 
+fpath=(/usr/local/share/zsh/site-functions $fpath)
+
+# load our own completion functions
+#fpath=(~/.zsh/completion $fpath)
+
+# load custom executable functions
+#for function in ~/.zsh/functions/*; do
+for function in /usr/local/share/zsh/site-functions/*; do
+  #source $function
+done
+
+source /usr/local/share/zsh/site-functions/_aws
+source /usr/local/share/zsh/site-functions/_docker
+source /usr/local/share/zsh/site-functions/_go
+
+# completion
+#zmodload zsh/complist
+#autoload -U compinit
+#compinit
+
+#zstyle ':completion:::::' completer _force_rehash _complete _approximate
+zstyle ':completion:::::' completer _complete _approximate
+
+zstyle -e ':completion:*:approximate:*' max-errors 'reply=( $(( ($#PREFIX + $#SUFFIX) / 3 )) )'
+zstyle ':completion:*:descriptions' format "- %d -"
+zstyle ':completion:*:corrections' format "- %d - (errors %e})"
+zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+zstyle ':completion:*' group-name ''
+zstyle ':completion:*:manuals' separate-sections true
+zstyle ':completion:*:manuals.(^1*)' insert-sections true
+zstyle ':completion:*' menu select
+zstyle ':completion:*' verbose yes
 
 #zstyle ':completion:*:*:git:*' script /usr/local/etc/bash_completion.d/git-completion.bash
 # make autocompletion faster by caching and prefix-only matching
@@ -70,7 +102,7 @@ zstyle ':completion:*:approximate:*' max-errors 1 numeric
 zstyle -e ':completion:*:approximate:*' max-errors 'reply=($((($#PREFIX+$#SUFFIX)/3))numeric)'
 
 # ignore completion functions for commands you don't have
-zstyle ':completion:*:functions' ignored-patterns '_*'
+# zstyle ':completion:*:functions' ignored-patterns '_*'
 
 # allow one error for every three characters typed
 zstyle -e ':completion:*:default' list-colors 'reply=("${PREFIX:+=(#bi)($PREFIX:t)*==36=36}:${(s.:.)LS_COLORS}")';
@@ -84,20 +116,6 @@ zstyle ':filter-select:highlight' matched fg=red
 zstyle ':filter-select' max-lines 1000
 zstyle ':filter-select' rotate-list yes
 zstyle ':filter-select' case-insensitive yes # enable case-insensitive search
-
-fpath=(/usr/local/share/zsh/site-functions $fpath)
-
-# load our own completion functions
-# fpath=(~/.zsh/completion $fpath)
-
-# completion
-# autoload -U compinit
-# compinit
-
-# load custom executable functions
-# for function in ~/.zsh/functions/*; do
-  #source $function
-# done
 
 # Enable Colours
 export CLICOLOR=1
@@ -124,7 +142,11 @@ export PATH="$HOME/.bin:$PATH"
 # functions
 [[ -f ~/.functions ]] && source ~/.functions
 
-export GOROOT=/usr/local/Cellar/go/1.3.1/libexec
+export GOROOT=/usr/local/Cellar/go/1.3.3/libexec
 export GOPATH=/Users/meabed/Development/go
 export PATH="$PATH:$GOPATH/bin"
 export JAVA_HOME=`/usr/libexec/java_home -v 1.8`
+
+    export DOCKER_CERT_PATH=/Users/meabed/.boot2docker/certs/boot2docker-vm
+    export DOCKER_TLS_VERIFY=1
+    export DOCKER_HOST=tcp://192.168.59.103:2376
