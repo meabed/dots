@@ -45,7 +45,7 @@ COMPLETION_WAITING_DOTS="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails rsync colorize)
 
-plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo docker extract go golang zsh_reload z boot2docker zsh-syntax-highlighting)
+plugins=(common-aliases osx brew brew-cask history history-substring-search git git-remote-branch git-extras git-flow github sudo docker extract golang zsh_reload z boot2docker zsh-syntax-highlighting colored-man systemadmin bower aws command-not-found node npm)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -65,8 +65,8 @@ for function in /usr/local/share/zsh/site-functions/*; do
   #source $function
 done
 
-source /usr/local/share/zsh/site-functions/_aws
-source /usr/local/share/zsh/site-functions/_docker
+#source /usr/local/share/zsh/site-functions/_aws
+#source /usr/local/share/zsh/site-functions/_docker
 source /usr/local/share/zsh/site-functions/_go
 
 # completion
